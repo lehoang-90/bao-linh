@@ -99,30 +99,24 @@
     <!-- Main Content Area -->
     <main class="flex-1 overflow-y-auto p-3 md:p-6 mb-14 md:mb-0 bg-gray-50">
 
-        <!-- 1. TAB BÁN HÀNG (POS) -->
-        <section id="tab-pos" class="tab-content h-full flex flex-col lg:flex-row gap-4">
-            <!-- Left Panel: Products Selection -->
-            <div class="lg:w-7/12 flex flex-col h-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-                <!-- Search & Filter Controls -->
-                <div class="flex gap-2 mb-3">
+        <!-- 1. TAB BÁN HÀNG (POS) - Sắp xếp theo thứ tự: Quét QR/Tìm kiếm -> Form thanh toán/Đơn hàng -> Danh sách sản phẩm -->
+        <section id="tab-pos" class="tab-content h-full flex flex-col gap-4 overflow-y-auto pb-6">
+            <!-- 1. Top Panel: Search & QR Scanner -->
+            <div class="w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+                <div class="flex gap-2">
                     <div class="relative flex-1">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-400"></i>
                         <input type="text" id="posSearchInput" oninput="filterPOSProducts()" placeholder="Tìm tên sản phẩm hoặc quét mã..." class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
                     </div>
-                    <button onclick="openScannerModal()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl flex items-center gap-2 text-sm shadow-sm transition active:scale-95">
-                        <i class="fa-solid fa-barcode text-lg"></i>
-                        <span class="hidden sm:inline">Quét mã</span>
+                    <button onclick="openScannerModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl flex items-center gap-2 text-sm shadow-sm transition active:scale-95 whitespace-nowrap">
+                        <i class="fa-solid fa-qrcode text-lg"></i>
+                        <span>Quét Mã QR</span>
                     </button>
-                </div>
-
-                <!-- Products Grid -->
-                <div class="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3 pr-1" id="posProductsGrid">
-                    <!-- Dynamic Product Cards populated by JS -->
                 </div>
             </div>
 
-            <!-- Right Panel: Cart & Payment -->
-            <div class="lg:w-5/12 flex flex-col h-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+            <!-- 2. Middle Panel: Cart & Payment -->
+            <div class="w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
                 <div class="flex justify-between items-center pb-3 border-b border-gray-100">
                     <h2 class="font-bold text-gray-800 text-lg flex items-center gap-2">
                         <i class="fa-solid fa-cart-shopping text-indigo-600"></i>
@@ -134,7 +128,7 @@
                 </div>
 
                 <!-- Cart Items List -->
-                <div class="flex-1 overflow-y-auto my-3 space-y-2 pr-1" id="cartItemsList">
+                <div class="max-h-48 overflow-y-auto my-3 space-y-2 pr-1" id="cartItemsList">
                     <!-- Dynamic Cart Items -->
                 </div>
 
@@ -150,7 +144,7 @@
                     </div>
 
                     <!-- Payment Details Input -->
-                    <div class="pt-2 border-t border-gray-200 grid grid-cols-2 gap-2">
+                    <div class="pt-2 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
                             <label class="block text-xs text-gray-500 mb-1">Khách đưa:</label>
                             <input type="number" id="customerPayInput" oninput="calculateChange()" placeholder="0" class="w-full p-2 border border-gray-300 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-indigo-500">
@@ -174,6 +168,17 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 3. Bottom Panel: Products Selection -->
+            <div class="w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
+                <h3 class="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-indigo-600"></i> Danh mục sản phẩm
+                </h3>
+                <!-- Products Grid -->
+                <div class="max-h-80 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pr-1" id="posProductsGrid">
+                    <!-- Dynamic Product Cards populated by JS -->
+                </div>
+            </div>
         </section>
 
         <!-- 2. TAB NHẬP HÀNG -->
@@ -181,7 +186,7 @@
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-truck-ramp-box text-indigo-600"></i>
-                    Phần Mềm Nhập Kho Hàng
+                  Nhập Hàng
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -285,7 +290,7 @@
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-wrap justify-between items-center gap-3">
                 <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
                     <i class="fa-solid fa-chart-line text-indigo-600"></i>
-                    Báo Cáo Kính Doanh
+                    Báo Cáo Kinh Doanh
                 </h2>
                 <div class="flex bg-gray-100 p-1 rounded-xl text-xs font-semibold">
                     <button onclick="setReportPeriod('today')" id="btnPeriodToday" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm">Hôm nay</button>
@@ -719,7 +724,7 @@
             let totalPrice = 0;
 
             if (cart.length === 0) {
-                list.innerHTML = `<div class="text-center py-10 text-gray-400 text-xs"><i class="fa-solid fa-basket-shopping text-3xl mb-2 block"></i>Chưa có sản phẩm trong đơn</div>`;
+                list.innerHTML = `<div class="text-center py-6 text-gray-400 text-xs"><i class="fa-solid fa-basket-shopping text-2xl mb-1 block"></i>Chưa có sản phẩm trong đơn</div>`;
             } else {
                 cart.forEach(item => {
                     const itemTotal = item.price * item.qty;
